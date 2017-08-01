@@ -1,7 +1,10 @@
 package bluemoon.com.cn.reactnativeapp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.facebook.react.ReactInstanceManager;
@@ -15,15 +18,23 @@ public class MyReactActivity extends Activity implements DefaultHardwareBackBtnH
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
 
+    public static void startAct(Context context, String moduleName) {
+        Intent intent = new Intent(context, MyReactActivity.class);
+        intent.putExtra("moduleName", moduleName);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        String moduleName = getIntent().getStringExtra("moduleName");
+        if (TextUtils.isEmpty(moduleName)) {
+            moduleName = "index.android";
+        }
         mReactRootView = new ReactRootView(this);
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setBundleAssetName("index.android.bundle")
-                .setJSMainModuleName("index.android")
+                .setJSMainModuleName(moduleName)
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
