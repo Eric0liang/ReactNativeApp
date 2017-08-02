@@ -8,10 +8,17 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactPackage;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.bridge.JavaScriptModule;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.react.uimanager.ViewManager;
+
+import java.util.List;
 
 
 public class MyReactActivity extends Activity implements DefaultHardwareBackBtnHandler {
@@ -39,11 +46,10 @@ public class MyReactActivity extends Activity implements DefaultHardwareBackBtnH
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
-
+        mReactInstanceManager.getDevSupportManager().handleReloadJS();
         // 注意这里的HelloWorld必须对应“index.android.js”中的
         // “AppRegistry.registerComponent()”的第一个参数
         mReactRootView.startReactApplication(mReactInstanceManager, "reactnativeapp", null);
-
         setContentView(mReactRootView);
     }
 

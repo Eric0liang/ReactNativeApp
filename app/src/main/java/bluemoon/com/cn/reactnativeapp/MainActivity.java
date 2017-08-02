@@ -26,6 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ListView listView = (ListView)findViewById(R.id.listview);
         moduleList.add(new ModuleBean("hello world", "index.android"));
+        moduleList.add(new ModuleBean("props", "props"));
+        moduleList.add(new ModuleBean("state", "state"));
+        moduleList.add(new ModuleBean("style", "style"));
+        moduleList.add(new ModuleBean("textinput", "textinput"));
+        moduleList.add(new ModuleBean("scrollView", "scrollView"));
+        moduleList.add(new ModuleBean("flatList", "flatList"));
+        moduleList.add(new ModuleBean("sectionList", "sectionList"));
+        moduleList.add(new ModuleBean("fetch", "fetch"));
+        moduleList.add(new ModuleBean("navigator", "navigator"));
+        moduleList.add(new ModuleBean("app", "app"));
         ListAdapter adapter = new ListAdapter(this, moduleList);
         listView.setAdapter(adapter);
     }
@@ -84,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                             return;
                         }
                     }
-                    MyReactActivity.startAct(context, getItem(position).getModuleName());
+                    String modulePath = "js/"+getItem(position).getModuleName();
+                    MyReactActivity.startAct(context, modulePath);
                 }
             });
             return convertView;
